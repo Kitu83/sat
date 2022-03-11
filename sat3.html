@@ -1,0 +1,34 @@
+<div id="form">
+	
+	<h2>Génération aléatoire de l'équation :</h2>
+	
+	<input id="candidats" type="text" placeholder="Nombre de variables" />
+	<input id="cmax" type="checkbox" />
+	<label for="cmax" class="noselect">Max</label>
+	
+	<input id="membres" type="text" placeholder="Nombre de clauses" />
+	<input id="mmax" type="checkbox" />
+	<label for="mmax" class="noselect">Max</label>
+	
+	<input id="appros" type="text" placeholder="Nombre de variables par clause" />
+	<input id="amax" type="checkbox" />
+	<label for="amax" class="noselect">Max</label>
+	
+	<input id="send" type="button" value="Exécuter" />
+	
+	<br />
+	
+	<h2>&Eacute;quation choisie :</h2>
+	
+	Entrez un tableau JSON à deux dimensions avec des nombres positifs ou négatifs, exemple :<br />
+	<span style="color:green;">[[1, -3], [-1, 2], [3]]</span><br />
+	Les nombres négatifs généreront une variable négativée.<br />
+	Un ET logique est placé entre chaque sous-tableau, et un OU logique est placé entre chaque variable de chaque sous-tableau.<br />
+	Autrement dit l'exemple ci-dessus générera l'équation logique suivante :<br />
+	<span style="color:green;">(v[1]|!v[3]) & (!v[1]|v[2]) & (v[3])</span>
+					
+	<input id="eqtab" type="text" placeholder="Tableau en entrée" />
+	
+	<input id="send2" type="button" value="Exécuter" />
+	
+</div>
