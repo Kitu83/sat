@@ -29,44 +29,44 @@
 		document.getElementById('eqWithVars').innerHTML = '';
 		document.getElementById('res').innerHTML = '';
 		
-		let candidats = document.getElementById('candidats').value;
+		let variables = document.getElementById('variables').value;
 		
-		let membres = document.getElementById('membres').value;
+		let clauses = document.getElementById('clauses').value;
 		
-		let appros = document.getElementById('appros').value;
+		let vc = document.getElementById('vc').value;
+		
+		let vmax = document.getElementById('vmax').checked;
 		
 		let cmax = document.getElementById('cmax').checked;
 		
-		let mmax = document.getElementById('mmax').checked;
+		let vcmax = document.getElementById('vcmax').checked;
 		
-		let amax = document.getElementById('amax').checked;
+		if (vmax === true) {
+			
+			variables = getRandomInt(1, variables);
+		}
 		
 		if (cmax === true) {
 			
-			candidats = getRandomInt(1, candidats);
-		}
-		
-		if (mmax === true) {
-			
-			membres = getRandomInt(1, membres);
+			clauses = getRandomInt(1, clauses);
 		}
 		
 		let a = [];
 		
-		for (let i = 0; i < membres; i++) {
+		for (let i = 0; i < clauses; i++) {
 			
-			let n = appros;
+			let n = vc;
 			
-			if (amax === true) {
+			if (vcmax === true) {
 				
-				n = getRandomInt(1, appros);
+				n = getRandomInt(1, vc);
 			}
 			
 			let m = []
 			
 			for (let j = 0; j < n; j++) {
 				
-				let nc = getRandomAppro(1, candidats);
+				let nc = getRandomAppro(1, variables);
 				
 				m.push(nc);
 			}
