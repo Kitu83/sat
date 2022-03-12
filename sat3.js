@@ -136,45 +136,45 @@ function bruteforce(eq_tab) {
 	
 	let start = Date.now();
 	
-	eq_tab.forEach(function(item, index) {
+	eq_tab.forEach(function(clause, index) {
 		
 		eq.push([]);
 		
-		item.forEach(function(value) {
+		clause.forEach(function(variable) {
 			
-			if (Math.sign(value) === -1) {
+			if (Math.sign(variable) === -1) {
 				
-				value = Math.abs(value);
+				variable = Math.abs(variable);
 				
-				if (v[value] === undefined) {
+				if (v[variable] === undefined) {
 					
-					v[value] = false;
+					v[variable] = false;
 				}
 				
-				eq[index].push('!v['+value+']');
+				eq[index].push('!v['+variable+']');
 				
-				if (temp.indexOf(value) !== -1 && dup.indexOf(value) === -1) {
+				if (temp.indexOf(variable) !== -1 && dup.indexOf(variable) === -1) {
 					
-					dup.push(value);
+					dup.push(variable);
 				}
 				
-				temp.push(value * -1);
+				temp.push(variable * -1);
 			}
-			else if (Math.sign(value) === 1) {
+			else if (Math.sign(variable) === 1) {
 				
-				if (v[value] === undefined) {
+				if (v[variable] === undefined) {
 					
-					v[value] = true;
+					v[variable] = true;
 				}
 				
-				eq[index].push('v['+value+']');
+				eq[index].push('v['+variable+']');
 				
-				if (temp.indexOf(value * -1) !== -1 && dup.indexOf(value) === -1) {
+				if (temp.indexOf(variable * -1) !== -1 && dup.indexOf(variable) === -1) {
 					
-					dup.push(value);
+					dup.push(variable);
 				}
 				
-				temp.push(value);
+				temp.push(variable);
 			}
 		});
 		
@@ -196,9 +196,9 @@ function bruteforce(eq_tab) {
 	else {
 		
 		loop:
-		for (let i = 0; i < dup.length; i++) {
+		for (let j = 0; j < 2; j++) {
 			
-			for (let j = 0; j < 2; j++) {
+			for (let i = 0; i < dup.length; i++) {
 				
 				if ( eval(eq) ) {
 					
