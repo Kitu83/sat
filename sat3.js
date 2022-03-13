@@ -97,7 +97,7 @@ function bruteforce(eq_tab) {
 			
 			if ( eval(eq) ) {
 				
-				console.log('Success after permutation !');
+				console.log('Success after inversion !');
 				
 				check = true;
 				
