@@ -79,7 +79,7 @@ function bruteforce(eq_tab) {
 			
 			let value = i.toString(2);
 			
-			let combi = '0'.repeat(3 - value.length) + value;
+			let combi = '0'.repeat(dup.length - value.length) + value;
 			
 			console.log(combi, typeof combi);
 			
