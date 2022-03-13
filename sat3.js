@@ -1,124 +1,3 @@
-(function() {
-	
-	document.getElementById('send2').onclick = function() {
-		
-		let loader = document.createElement('img');
-		
-		loader.src = '/img/loader.gif';
-		
-		loader.alt = 'Loader ...';
-		
-		loader.id = 'loader';
-		
-		document.getElementById('result').append( loader );
-		
-		document.getElementById('eq_tab').innerHTML = '';
-		document.getElementById('eq').innerHTML = '';
-		document.getElementById('vars').innerHTML = '';
-		document.getElementById('eqWithVars').innerHTML = '';
-		document.getElementById('res').innerHTML = '';
-		
-		bruteforce( document.getElementById('eqtab').value );
-	}
-	
-	document.getElementById('send').onclick = function() {
-		
-		document.getElementById('eq_tab').innerHTML = '';
-		document.getElementById('eq').innerHTML = '';
-		document.getElementById('vars').innerHTML = '';
-		document.getElementById('eqWithVars').innerHTML = '';
-		document.getElementById('res').innerHTML = '';
-		
-		let variables = document.getElementById('variables').value;
-		
-		let clauses = document.getElementById('clauses').value;
-		
-		let vc = document.getElementById('vc').value;
-		
-		let vmax = document.getElementById('vmax').checked;
-		
-		let cmax = document.getElementById('cmax').checked;
-		
-		let vcmax = document.getElementById('vcmax').checked;
-		
-		if (vmax === true) {
-			
-			variables = getRandomInt(1, variables);
-		}
-		
-		if (cmax === true) {
-			
-			clauses = getRandomInt(1, clauses);
-		}
-		
-		let a = [];
-		
-		for (let i = 0; i < clauses; i++) {
-			
-			let n = vc;
-			
-			if (vcmax === true) {
-				
-				n = getRandomInt(1, vc);
-			}
-			
-			let m = []
-			
-			for (let j = 0; j < n; j++) {
-				
-				let nc = getRandomAppro(1, variables);
-				
-				m.push(nc);
-			}
-			
-			a.push(m);
-		}
-		
-		let loader = document.createElement('img');
-		
-		loader.src = '/img/loader.gif';
-		
-		loader.alt = 'Loader ...';
-		
-		loader.id = 'loader';
-		
-		document.getElementById('result').append( loader );
-		
-		let eq = a;
-		
-		bruteforce(eq);
-	}
-})();
-
-function getRandomInt(min, max) {
-	
-	min = Math.ceil(min);
-	
-	max = Math.ceil(max);
-	
-	return Math.ceil(Math.random() * (max - min)) + min;
-}
-
-function getRandomAppro(min, max) {
-	
-	min = Math.ceil(min);
-	
-	max = Math.ceil(max);
-	
-	let sign;
-	
-	if (Math.random() >= 0.5) {
-		
-		sign = 1;
-	}
-	else {
-		
-		sign = -1;
-	}
-	
-	return Math.ceil((Math.random() * (max - min) + min) * sign);
-}
-
 function bruteforce(eq_tab) {
 	
 	if (typeof eq_tab === 'string' || eq_tab instanceof String) {
@@ -270,3 +149,124 @@ function bruteforce(eq_tab) {
 	
 	document.getElementById('loader').remove();
 }
+
+function getRandomInt(min, max) {
+	
+	min = Math.ceil(min);
+	
+	max = Math.ceil(max);
+	
+	return Math.ceil(Math.random() * (max - min)) + min;
+}
+
+function getRandomAppro(min, max) {
+	
+	min = Math.ceil(min);
+	
+	max = Math.ceil(max);
+	
+	let sign;
+	
+	if (Math.random() >= 0.5) {
+		
+		sign = 1;
+	}
+	else {
+		
+		sign = -1;
+	}
+	
+	return Math.ceil((Math.random() * (max - min) + min) * sign);
+}
+
+(function() {
+	
+	document.getElementById('send2').onclick = function() {
+		
+		let loader = document.createElement('img');
+		
+		loader.src = '/img/loader.gif';
+		
+		loader.alt = 'Loader ...';
+		
+		loader.id = 'loader';
+		
+		document.getElementById('result').append( loader );
+		
+		document.getElementById('eq_tab').innerHTML = '';
+		document.getElementById('eq').innerHTML = '';
+		document.getElementById('vars').innerHTML = '';
+		document.getElementById('eqWithVars').innerHTML = '';
+		document.getElementById('res').innerHTML = '';
+		
+		bruteforce( document.getElementById('eqtab').value );
+	}
+	
+	document.getElementById('send').onclick = function() {
+		
+		document.getElementById('eq_tab').innerHTML = '';
+		document.getElementById('eq').innerHTML = '';
+		document.getElementById('vars').innerHTML = '';
+		document.getElementById('eqWithVars').innerHTML = '';
+		document.getElementById('res').innerHTML = '';
+		
+		let variables = document.getElementById('variables').value;
+		
+		let clauses = document.getElementById('clauses').value;
+		
+		let vc = document.getElementById('vc').value;
+		
+		let vmax = document.getElementById('vmax').checked;
+		
+		let cmax = document.getElementById('cmax').checked;
+		
+		let vcmax = document.getElementById('vcmax').checked;
+		
+		if (vmax === true) {
+			
+			variables = getRandomInt(1, variables);
+		}
+		
+		if (cmax === true) {
+			
+			clauses = getRandomInt(1, clauses);
+		}
+		
+		let a = [];
+		
+		for (let i = 0; i < clauses; i++) {
+			
+			let n = vc;
+			
+			if (vcmax === true) {
+				
+				n = getRandomInt(1, vc);
+			}
+			
+			let m = []
+			
+			for (let j = 0; j < n; j++) {
+				
+				let nc = getRandomAppro(1, variables);
+				
+				m.push(nc);
+			}
+			
+			a.push(m);
+		}
+		
+		let loader = document.createElement('img');
+		
+		loader.src = '/img/loader.gif';
+		
+		loader.alt = 'Loader ...';
+		
+		loader.id = 'loader';
+		
+		document.getElementById('result').append( loader );
+		
+		let eq = a;
+		
+		bruteforce(eq);
+	}
+})();
