@@ -196,27 +196,33 @@ function bruteforce(eq_tab) {
 	else {
 		
 		loop:
-		for (let j = 0; j < 2; j++) {
+		for (let i = 0; i < 2 ** dup.length; i++) {
 			
-			for (let i = 0; i < dup.length; i++) {
+			let value = i.toString(2);
+			
+			let combi = '0'.repeat(3 - value.length) + value;
+			
+			console.log(combi, typeof combi);
+			
+			for (let j = 0; j < combi.length; j++) {
 				
-				if ( eval(eq) ) {
+				if (combi[j] === '0') {
 					
-					console.log('Success after permutation !');
-					
-					check = true;
-					
-					break loop;
-				}
-				
-				if (v[dup[i]] === true) {
-					
-					v[dup[i]] = false;
+					v[ dup[j] ] = false;
 				}
 				else {
 					
-					v[dup[i]] = true;
+					v[ dup[j] ] = true;
 				}
+			}
+			
+			if ( eval(eq) ) {
+				
+				console.log('Success after permutation !');
+				
+				check = true;
+				
+				break loop;
 			}
 		}
 		
