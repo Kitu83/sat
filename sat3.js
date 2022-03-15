@@ -74,35 +74,51 @@ function bruteforce(eq_tab) {
 	}
 	else {
 		
-		loop:
-		for (let i = 0; i < 2 ** dup.length; i++) {
+		let baseCombi = '';
+		
+		dup.forEach(function(item) {
 			
-			let value = i.toString(2);
+			if (item === true) {
+				
+				baseCombi += '1';
+			}
+			else {
+				
+				baseCombi += '0';
+			}
+		});
+		
+		let value = '0';
+		
+		while (1) {
 			
 			let combi = '0'.repeat(dup.length - value.length) + value;
 			
-			console.log(combi, typeof combi);
-			
-			for (let j = 0; j < combi.length; j++) {
+			if (combi !== baseCombi) {
 				
-				if (combi[j] === '0') {
+				for (let j = 0; j < combi.length; j++) {
 					
-					v[ dup[j] ] = false;
+					if (combi[j] === '0') {
+						
+						v[ dup[j] ] = false;
+					}
+					else {
+						
+						v[ dup[j] ] = true;
+					}
 				}
-				else {
+				
+				if ( eval(eq) ) {
 					
-					v[ dup[j] ] = true;
+					console.log('Success after inversion !');
+					
+					check = true;
+					
+					break;
 				}
 			}
-			
-			if ( eval(eq) ) {
 				
-				console.log('Success after inversion !');
-				
-				check = true;
-				
-				break loop;
-			}
+			value = binarInc(value);
 		}
 		
 		if (check === false) {
@@ -148,6 +164,41 @@ function bruteforce(eq_tab) {
 	document.getElementById('result').style.display = 'block';
 	
 	document.getElementById('loader').remove();
+}
+
+function binarInc(value) {
+	
+	let len = value.length;
+		
+	let c = 0;
+	
+	for (let i = (len - 1); i > -1; i--) {
+		
+		if (value[i] === '1') {
+			
+			value = value.replaceAt(i, '0');
+			
+			c++;
+		}
+		else {
+			
+			value = value.replaceAt(i, '1');
+			
+			break;
+		}
+	}
+	
+	if (c === len) {
+		
+		value = '1' + value;
+	}
+	
+	return value;
+}
+
+String.prototype.replaceAt = function(index, replacement) {
+	
+    return this.substr(0, index) + replacement + this.substr(index + replacement.length);
 }
 
 function getRandomInt(min, max) {
