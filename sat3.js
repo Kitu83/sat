@@ -92,30 +92,36 @@ function bruteforce(eq_tab) {
 		
 		while (1) {
 			
-			let combi = '0'.repeat(dup.length - value.length) + value;
+			let len = value.length <= dup.length ? dup.length - value.length : 0;
 			
-			if (combi !== baseCombi) {
+			let combi = '0'.repeat(len) + value;
+			
+			console.log(combi);
+			
+			for (let j = 0; j < combi.length; j++) {
 				
-				for (let j = 0; j < combi.length; j++) {
+				if (combi[j] === '0') {
 					
-					if (combi[j] === '0') {
-						
-						v[ dup[j] ] = false;
-					}
-					else {
-						
-						v[ dup[j] ] = true;
-					}
+					v[ dup[j] ] = false;
 				}
+				else {
+					
+					v[ dup[j] ] = true;
+				}
+			}
+			
+			if ( eval(eq) ) {
 				
-				if ( eval(eq) ) {
-					
-					console.log('Success after inversion !');
-					
-					check = true;
-					
-					break;
-				}
+				console.log('Success after inversion !');
+				
+				check = true;
+				
+				break;
+			}
+			
+			if (combi.indexOf('0') === -1) {
+				
+				break;
 			}
 				
 			value = binarInc(value);
