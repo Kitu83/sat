@@ -15,7 +15,7 @@ function bruteforce3(eq_tab) {
 			
 			if (index !== index2) {
 				
-				if (absoluteSum(unsat_core[index][0]) === absoluteSum(clause2)) {
+				if (absoluteSum(unsat_core[index][0]) === absoluteSum(clause2) && unsat_core[index][0].length === clause2.length) {
 					
 					if (unsat_core[index][1] === undefined) {
 						
@@ -26,14 +26,19 @@ function bruteforce3(eq_tab) {
 				}
 				else {
 					
+					let check = 0;
+					
 					for (let i = 0; i < clause2.length; i++) {
 						
 						if (unsat_core[index][0].indexOf(clause2[i]) !== -1 || unsat_core[index][0].indexOf(Math.abs(clause2[i])) !== -1) {
 							
-							unsat_core[index].push(clause2);
-							
-							break;
+							check++;
 						}
+					}
+					
+					if (check !== clause2.length && absoluteSum(unsat_core[index][0]) !== absoluteSum(clause2)) {
+						
+						unsat_core[index].push(clause2);
 					}
 				}
 			}
@@ -71,7 +76,7 @@ function bruteforce3(eq_tab) {
 					break;
 				}
 				
-				if (j === unsat_core[i].length-1) {
+				if (j === unsat_core[i].length - 1) {
 					
 					pass++;
 				}
@@ -123,7 +128,7 @@ const absoluteSum = arr => {
 
 // (a|b|c) & (!a|b|c) & (a|!b|c) & (!a|!b|c) & (a|b|!c) & (!a|b|!c) & (a|!b|!c) & (!a|!b|d) & (!c|!d)
 
-let eq_tab = [[1,2,3],[-1,2,3],[1,-2,3],[-1,-2,3],[1,2,-3],[-1,2,-3],[1,-2,-3],[-1,-2,4],[-3,-4]]
+let eq_tab = [[1,2,3],[-1,2,3],[1,-2,3],[-1,-2,3],[1,2,-3],[-1,2,-3],[1,-2,-3],[-1,-2,4],[-3,-4],[-1,-5]]
 
 console.log('(a|b|c) & (!a|b|c) & (a|!b|c) & (!a|!b|c) & (a|b|!c) & (!a|b|!c) & (a|!b|!c) & (!a|!b|d) & (!c|!d)');
 
