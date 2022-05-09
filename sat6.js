@@ -90,6 +90,10 @@ function bruteforce3(eq_tab) {
 		
 		console.log(mem);
 	}
+	else {
+		
+		console.log('SAT !');
+	}
 }
 
 function unsat_core_sum(arr) {
