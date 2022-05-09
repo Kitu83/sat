@@ -121,6 +121,8 @@ const absoluteSum = arr => {
 	return res;
 };
 
+// (a|b|c) & (!a|b|c) & (a|!b|c) & (!a|!b|c) & (a|b|!c) & (!a|b|!c) & (a|!b|!c) & (!a|!b|d) & (!c|!d)
+
 let eq_tab = [[1,2,3],[-1,2,3],[1,-2,3],[-1,-2,3],[1,2,-3],[-1,2,-3],[1,-2,-3],[-1,-2,4],[-3,-4]]
 
 bruteforce3(eq_tab);
