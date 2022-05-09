@@ -75,8 +75,6 @@ function bruteforce3(eq_tab) {
 					
 					pass++;
 				}
-				
-				mem = false;
 			}
 		}
 		
