@@ -28,7 +28,7 @@ function bruteforce3(eq_tab) {
 					
 					for (let i = 0; i < clause2.length; i++) {
 						
-						if (unsat_core[index][0].indexOf(clause2[i]) !== -1 || unsat_core[index][0].indexOf(Math.abs(clause2[i]))) {
+						if (unsat_core[index][0].indexOf(clause2[i]) !== -1 || unsat_core[index][0].indexOf(Math.abs(clause2[i])) !== -1) {
 							
 							unsat_core[index].push(clause2);
 							
@@ -124,5 +124,9 @@ const absoluteSum = arr => {
 // (a|b|c) & (!a|b|c) & (a|!b|c) & (!a|!b|c) & (a|b|!c) & (!a|b|!c) & (a|!b|!c) & (!a|!b|d) & (!c|!d)
 
 let eq_tab = [[1,2,3],[-1,2,3],[1,-2,3],[-1,-2,3],[1,2,-3],[-1,2,-3],[1,-2,-3],[-1,-2,4],[-3,-4]]
+
+console.log('(a|b|c) & (!a|b|c) & (a|!b|c) & (!a|!b|c) & (a|b|!c) & (!a|b|!c) & (a|!b|!c) & (!a|!b|d) & (!c|!d)');
+
+console.log( JSON.stringify(eq_tab) );
 
 bruteforce3(eq_tab);
