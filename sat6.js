@@ -47,9 +47,13 @@ function bruteforce3(eq_tab) {
 	
 	console.log(unsat_core);
 	
-	let mem, pass = 1, check = true;
+	let mem, check = true;
 	
 	for (let i = 0; i < unsat_core.length; i++) {
+		
+		let pass = 1;
+		
+		mem = unsat_core[i][1];
 		
 		if (unsat_core_sum(unsat_core[i][1]) === 0) {
 			
@@ -57,8 +61,6 @@ function bruteforce3(eq_tab) {
 			
 			break;
 		}
-		
-		mem = unsat_core[i][1];
 		
 		for (let j = 0; j < unsat_core[i].length; j++) {
 			
@@ -128,11 +130,7 @@ const absoluteSum = arr => {
 	return res;
 };
 
-// (a|b|c) & (!a|b|c) & (a|!b|c) & (!a|!b|c) & (a|b|!c) & (!a|b|!c) & (a|!b|!c) & (!a|!b|d) & (!c|!d)
-
-let eq_tab = [[1,2,3],[-1,2,3],[1,-2,3],[-1,-2,3],[1,2,-3],[-1,2,-3],[1,-2,-3],[-1,-2,4],[-3,-4],[-1,-5]]
-
-console.log('(a|b|c) & (!a|b|c) & (a|!b|c) & (!a|!b|c) & (a|b|!c) & (!a|b|!c) & (a|!b|!c) & (!a|!b|d) & (!c|!d)');
+let eq_tab = [[1,2,3],[-1,2,3],[1,-2,3],[-1,-2,3],[1,2,-3],[-1,2,-3],[1,-2,-3],[-1,-2,-4],[-3,4]];
 
 console.log( JSON.stringify(eq_tab) );
 
