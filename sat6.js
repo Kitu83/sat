@@ -58,14 +58,14 @@ function bruteforce3(eq_tab) {
 			break;
 		}
 		
+		mem = unsat_core[i][1];
+		
 		for (let j = 0; j < unsat_core[i].length; j++) {
 			
 			if (j > 1) {
 				
-				mem = unsat_core[i][1];
-				
 				for (let k = 0; k < pass; k++) {
-					
+						
 					mem = mem.concat(unsat_core[i][j+k]);
 				}
 				
@@ -79,6 +79,8 @@ function bruteforce3(eq_tab) {
 				if (j === unsat_core[i].length - 1) {
 					
 					pass++;
+					
+					mem = unsat_core[i][1];
 				}
 			}
 		}
