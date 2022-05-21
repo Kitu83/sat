@@ -5,7 +5,7 @@ function bruteforce(eq_tab) {
 		eq_tab = JSON.parse(eq_tab);
 	}
 	
-	let unsat_core = [];
+	let unsat_core = [], index1 = [];
 	
 	eq_tab.forEach(function(clause, index) {
 		
@@ -19,7 +19,7 @@ function bruteforce(eq_tab) {
 			
 			if (index !== index2) {
 				
-				if (JSON.stringify(clause2abs) === JSON.stringify(clauseAbs) && unsat_core_sum(clause2) !== unsat_core_sum(clause)) {
+				if (JSON.stringify(clause2abs) === JSON.stringify(clauseAbs) && isin(index1, clause2)) {
 					
 					if (unsat_core[index][1] === undefined) {
 						
@@ -27,6 +27,8 @@ function bruteforce(eq_tab) {
 					}
 					
 					unsat_core[index][1] = unsat_core[index][1].concat(clause2);
+					
+					index1.push(clause2);
 				}
 				else {
 					
@@ -40,7 +42,7 @@ function bruteforce(eq_tab) {
 						}
 					}
 					
-					if (check !== clause2.length) {
+					if (check > 0) {
 						
 						unsat_core[index].push(clause2);
 					}
@@ -119,6 +121,25 @@ function unsat_core_sum(arr) {
     const sum = arr.reduce((partialSum, a) => partialSum + a, 0);
     
     return sum;
+}
+
+function isin(arr, arr2) {
+	
+	arr2 = JSON.stringify(arr2);
+	
+	let check = false;
+	
+	for (let i = 0; i < arr.length; i++) {
+		
+		if (JSON.stringify(a) === arr2) {
+			
+			check = true;
+			
+			break;
+		}
+	}
+	
+	return check;
 }
 
 let eq_tab = [[1,2,3],[-1,2,3],[1,-2,3],[-1,-2,3],[1,2,-3],[-1,2,-3],[1,-2,-3],[-1,-2,4],[-4,-3]];
