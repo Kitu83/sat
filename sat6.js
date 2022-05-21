@@ -19,7 +19,7 @@ function bruteforce(eq_tab) {
 			
 			if (index !== index2) {
 				
-				if (JSON.stringify(clause2abs) === JSON.stringify(clauseAbs) && isin(index1, clause2)) {
+				if (JSON.stringify(clause2abs) === JSON.stringify(clauseAbs) && !isin(index1, clause2)) {
 					
 					if (unsat_core[index][1] === undefined) {
 						
