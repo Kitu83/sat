@@ -1,4 +1,4 @@
-function bruteforce3(eq_tab) {
+function bruteforce(eq_tab) {
 	
 	if (typeof eq_tab === 'string' || eq_tab instanceof String) {
 		
@@ -8,14 +8,18 @@ function bruteforce3(eq_tab) {
 	let unsat_core = [];
 	
 	eq_tab.forEach(function(clause, index) {
-		  
+		
 		unsat_core.push([clause]);
+		
+		let clauseAbs = absoluteValueArray(clause);
 		
 		eq_tab.forEach(function(clause2, index2) {
 			
+			let clause2abs = absoluteValueArray(clause2);
+			
 			if (index !== index2) {
 				
-				if (absoluteSum(unsat_core[index][0]) === absoluteSum(clause2) && unsat_core[index][0].length === clause2.length) {
+				if (JSON.stringify(clause2abs) === JSON.stringify(clauseAbs) && unsat_core_sum(clause2) !== unsat_core_sum(clause)) {
 					
 					if (unsat_core[index][1] === undefined) {
 						
@@ -30,13 +34,13 @@ function bruteforce3(eq_tab) {
 					
 					for (let i = 0; i < clause2.length; i++) {
 						
-						if (unsat_core[index][0].indexOf(clause2[i]) !== -1 || unsat_core[index][0].indexOf(Math.abs(clause2[i])) !== -1) {
+						if (clauseAbs.indexOf(Math.abs(clause2[i])) !== -1) {
 							
 							check++;
 						}
 					}
 					
-					if (check !== clause2.length && absoluteSum(unsat_core[index][0]) !== absoluteSum(clause2)) {
+					if (check !== clause2.length) {
 						
 						unsat_core[index].push(clause2);
 					}
@@ -67,7 +71,7 @@ function bruteforce3(eq_tab) {
 			if (j > 1) {
 				
 				for (let k = 0; k < pass; k++) {
-						
+					
 					mem = mem.concat(unsat_core[i][j+k]);
 				}
 				
@@ -105,6 +109,11 @@ function bruteforce3(eq_tab) {
 	}
 }
 
+const absoluteValueArray = (array) => {
+	
+	return array.map( Math.abs ).sort( function(a, b) { return a - b } );
+}
+
 function unsat_core_sum(arr) {
     
     const sum = arr.reduce((partialSum, a) => partialSum + a, 0);
@@ -112,26 +121,8 @@ function unsat_core_sum(arr) {
     return sum;
 }
 
-const absoluteSum = arr => {
-
-	let res = 0;
-	
-	for (let i = 0; i < arr.length; i++) {
-		
-		if (arr[i] < 0) {
-			
-			res += (arr[i] * -1);
-			continue;
-		};
-		
-		res += arr[i];
-	};
-	
-	return res;
-};
-
-let eq_tab = [[1,2,3],[-1,2,3],[1,-2,3],[-1,-2,3],[1,2,-3],[-1,2,-3],[1,-2,-3],[-1,-2,-4],[-3,4]];
+let eq_tab = [[1,2,3],[-1,2,3],[1,-2,3],[-1,-2,3],[1,2,-3],[-1,2,-3],[1,-2,-3],[-1,-2,4],[-4,-3]];
 
 console.log( JSON.stringify(eq_tab) );
 
-bruteforce3(eq_tab);
+bruteforce(eq_tab);
