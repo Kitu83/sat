@@ -131,7 +131,7 @@ function isin(arr, arr2) {
 	
 	for (let i = 0; i < arr.length; i++) {
 		
-		if (JSON.stringify(a) === arr2) {
+		if (JSON.stringify(arr[i]) === arr2) {
 			
 			check = true;
 			
