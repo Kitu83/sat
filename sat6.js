@@ -36,7 +36,7 @@ function bruteforce(eq_tab) {
 					
 					for (let i = 0; i < clause2abs.length; i++) {
 						
-						if (clauseAbs.indexOf(clause2abs[i])) !== -1) {
+						if (clauseAbs.indexOf(clause2abs[i]) !== -1) {
 							
 							check++;
 						}
