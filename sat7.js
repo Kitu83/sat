@@ -80,7 +80,7 @@ function comb(arr) {
 			
 			for (let k = 1; k < arr[i].length; k++) {
 				
-				if (arr[i][k] === -arr[i][0]) {
+				if (arr[i][k].length === 1 && arr[i][k] === -arr[i][0]) {
 					
 					console.log('UNSAT !')
 					
@@ -114,6 +114,11 @@ function comb(arr) {
 				
 				binary += '1'
 			}
+		}
+		
+		if (i === 0 || i > 0 && binary.length === arr[i-1][0].length) {
+			
+			len = binary.length
 		}
 		
 		let not_common = [], clauses = []
