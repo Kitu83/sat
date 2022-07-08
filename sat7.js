@@ -164,18 +164,39 @@ function comb(arr) {
 					
 					console.log(bin)
 					
-					out.push( parseInt(bin, 2) )
+					let n = parseInt(bin, 2)
 					
-					len = bin.length
+					if (out.indexOf(n) === -1) {
+						
+						out.push( n )
+						
+						len = bin.length
+					}
+					
+					if (out.length === 2**len && unsat_core_sum(out) === 2**(digits-1) * (out.length-1)) {
+						
+						console.log('UNSAT !')
+						
+						return
+					}
 				}
 			}
 		}
 		
-		if (len === digits) {
+		let n = parseInt(binary, 2)
+		
+		if (len === digits && out.indexOf(n) === -1) {
 			
 			console.log(binary)
 			
-			out.push( parseInt(binary, 2) )
+			out.push( n )
+		}
+		
+		if (out.length === 2**len && unsat_core_sum(out) === 2**(digits-1) * (out.length-1)) {
+			
+			console.log('UNSAT !')
+			
+			return
 		}
 	}
 	
