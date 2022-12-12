@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="utf-8" />
+
+<link href="/style.css" rel="stylesheet" type="text/css" />
+
+<link href="/button.css" rel="stylesheet" type="text/css" />
+
+<title>Test SAT</title>
+
+</head>
+
+<body>
+	
+	<div id="page">
+			
+		<div id="form">
+			
+			<input id="eq" type="hidden" />
+		
+			<input id="nb_eq" type="text" placeholder="Nombre d'équations" style="width:600px;" />
+			
+			<input id="variables" type="text" placeholder="Nombre de variables" />
+			<input id="vmax" type="checkbox" />
+			<label for="vmax" class="noselect">Max</label>
+			
+			<input id="clauses" type="text" placeholder="Nombre de clauses" />
+			<input id="cmax" type="checkbox" />
+			<label for="cmax" class="noselect">Max</label>
+			
+			<input id="vc" type="text" placeholder="Nombre de variables par clause" />
+			<input id="vcmax" type="checkbox" />
+			<label for="vcmax" class="noselect">Max</label>
+			
+			<input id="send" type="button" value="Exécuter" />
+			
+		</div>
+		
+		<h2>Bruteforce :</h2>
+		SAT : <span id="bf_sat">0</span>&nbsp;|&nbsp;
+		UNSAT : <span id="bf_unsat">0</span>
+		
+		<h2>Literal :</h2>
+		SAT : <span id="lit_sat">0</span>&nbsp;|&nbsp;
+		UNSAT : <span id="lit_unsat">0</span>
+		
+		<br /><br />
+		
+		<a href="https://susoft.fr/sat/sat.pdf" target="_blank">Fichier explicatif</a><br /><br />
+		<a href="https://susoft.fr/sat/sat11.js" target="_blank">Source Javascript</a>
+	</div>
+	
+	<script src="sat11.js"></script>
+	
+</body>
+
+</html>
+
