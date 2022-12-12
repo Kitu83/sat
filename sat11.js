@@ -1,219 +1,6 @@
 ﻿
-// -------------- Algo correct par simple bruteforce -------------- :
-
-let equation
-
-function bruteforce(eq_tab) {
-	
-	if (typeof eq_tab === 'string' || eq_tab instanceof String) {
-		
-		eq_tab = JSON.parse(eq_tab)
-	}
-	
-	let v = []
-	
-	let dup = []
-	
-	let temp = []
-	
-	let eq = []
-	
-	let start = Date.now()
-	
-	eq_tab.forEach(function(clause, index) {
-		
-		eq.push([])
-		
-		clause.forEach(function(variable) {
-			
-			if (Math.sign(variable) === -1) {
-				
-				variable = Math.abs(variable)
-				
-				if (v[variable] === undefined) {
-					
-					v[variable] = false
-				}
-				
-				eq[index].push('!v['+variable+']');
-				
-				if (temp.indexOf(variable) !== -1 && dup.indexOf(variable) === -1) {
-					
-					dup.push(variable)
-				}
-				
-				temp.push(variable * -1)
-			}
-			else if (Math.sign(variable) === 1) {
-				
-				if (v[variable] === undefined) {
-					
-					v[variable] = true
-				}
-				
-				eq[index].push('v['+variable+']')
-				
-				if (temp.indexOf(variable * -1) !== -1 && dup.indexOf(variable) === -1) {
-					
-					dup.push(variable)
-				}
-				
-				temp.push(variable)
-			}
-		});
-		
-		eq[index] = '(' + eq[index].join('|') + ')'
-	});
-	
-	eq = eq.join('&')
-	
-	console.log(eq_tab)
-	
-	let check = false
-	
-	if ( eval(eq) ) {
-		
-		console.log('SAT BF !')
-		
-		check = true;
-	}
-	else {
-		
-		let baseCombi = '';
-		
-		dup.forEach(function(item) {
-			
-			if (item === true) {
-				
-				baseCombi += '1'
-			}
-			else {
-				
-				baseCombi += '0'
-			}
-		});
-		
-		let value = '0'
-		
-		while (1) {
-			
-			let len = value.length <= dup.length ? dup.length - value.length : 0
-			
-			let combi = '0'.repeat(len) + value
-			
-			//console.log(combi)
-			
-			for (let j = 0; j < combi.length; j++) {
-				
-				if (combi[j] === '0') {
-					
-					v[ dup[j] ] = false
-				}
-				else {
-					
-					v[ dup[j] ] = true
-				}
-			}
-			
-			if ( eval(eq) ) {
-				
-				//console.log('Success after inversion !')
-				
-				check = true
-				
-				break
-			}
-			
-			if (combi.indexOf('0') === -1) {
-				
-				break
-			}
-				
-			value = binarInc(value)
-		}
-		
-		if (check === false) {
-		
-			console.log('UNSAT BF !')
-		}
-	}
-	
-	if (check === true) {
-		
-		document.getElementById('bf_sat').innerHTML++
-	}
-	else {
-		
-		document.getElementById('bf_unsat').innerHTML++
-	}
-}
-
-function binarInc(value) {
-	
-	let len = value.length;
-		
-	let c = 0;
-	
-	for (let i = (len - 1); i > -1; i--) {
-		
-		if (value[i] === '1') {
-			
-			value = value.replaceAt(i, '0');
-			
-			c++;
-		}
-		else {
-			
-			value = value.replaceAt(i, '1');
-			
-			break;
-		}
-	}
-	
-	if (c === len) {
-		
-		value = '1' + value;
-	}
-	
-	return value;
-}
-
-String.prototype.replaceAt = function(index, replacement) {
-	
-    return this.substr(0, index) + replacement + this.substr(index + replacement.length);
-}
-
-function getRandomInt(min, max) {
-	
-	min = Math.ceil(min);
-	
-	max = Math.ceil(max);
-	
-	return Math.ceil(Math.random() * (max - min)) + min;
-}
-
-function getRandomAppro(min, max) {
-	
-	min = Math.ceil(min);
-	
-	max = Math.ceil(max);
-	
-	let sign;
-	
-	if (Math.random() >= 0.5) {
-		
-		sign = 1;
-	}
-	else {
-		
-		sign = -1;
-	}
-	
-	return Math.ceil((Math.random() * (max - min) + min) * sign);
-}
-
 // -------------- Algo à tester -------------- :
-// [[2,2,2],[-1,2,3],[2,-1,3],[-1,-1,3],[2,-1,-1],[-1,2,-2],[-2,-2,-2],[-1,3,3]]
+
 function sort(eq_tab, rec) {
 	
 	if (typeof eq_tab === 'string' || eq_tab instanceof String) {
@@ -534,6 +321,220 @@ function sortArrayByAbsValues(sortedArray) {
 	}
 
 	return result
+}
+
+
+// -------------- Algo correct par simple bruteforce -------------- :
+
+let equation
+
+function bruteforce(eq_tab) {
+	
+	if (typeof eq_tab === 'string' || eq_tab instanceof String) {
+		
+		eq_tab = JSON.parse(eq_tab)
+	}
+	
+	let v = []
+	
+	let dup = []
+	
+	let temp = []
+	
+	let eq = []
+	
+	let start = Date.now()
+	
+	eq_tab.forEach(function(clause, index) {
+		
+		eq.push([])
+		
+		clause.forEach(function(variable) {
+			
+			if (Math.sign(variable) === -1) {
+				
+				variable = Math.abs(variable)
+				
+				if (v[variable] === undefined) {
+					
+					v[variable] = false
+				}
+				
+				eq[index].push('!v['+variable+']');
+				
+				if (temp.indexOf(variable) !== -1 && dup.indexOf(variable) === -1) {
+					
+					dup.push(variable)
+				}
+				
+				temp.push(variable * -1)
+			}
+			else if (Math.sign(variable) === 1) {
+				
+				if (v[variable] === undefined) {
+					
+					v[variable] = true
+				}
+				
+				eq[index].push('v['+variable+']')
+				
+				if (temp.indexOf(variable * -1) !== -1 && dup.indexOf(variable) === -1) {
+					
+					dup.push(variable)
+				}
+				
+				temp.push(variable)
+			}
+		});
+		
+		eq[index] = '(' + eq[index].join('|') + ')'
+	});
+	
+	eq = eq.join('&')
+	
+	console.log(eq_tab)
+	
+	let check = false
+	
+	if ( eval(eq) ) {
+		
+		console.log('SAT BF !')
+		
+		check = true;
+	}
+	else {
+		
+		let baseCombi = '';
+		
+		dup.forEach(function(item) {
+			
+			if (item === true) {
+				
+				baseCombi += '1'
+			}
+			else {
+				
+				baseCombi += '0'
+			}
+		});
+		
+		let value = '0'
+		
+		while (1) {
+			
+			let len = value.length <= dup.length ? dup.length - value.length : 0
+			
+			let combi = '0'.repeat(len) + value
+			
+			//console.log(combi)
+			
+			for (let j = 0; j < combi.length; j++) {
+				
+				if (combi[j] === '0') {
+					
+					v[ dup[j] ] = false
+				}
+				else {
+					
+					v[ dup[j] ] = true
+				}
+			}
+			
+			if ( eval(eq) ) {
+				
+				//console.log('Success after inversion !')
+				
+				check = true
+				
+				break
+			}
+			
+			if (combi.indexOf('0') === -1) {
+				
+				break
+			}
+				
+			value = binarInc(value)
+		}
+		
+		if (check === false) {
+		
+			console.log('UNSAT BF !')
+		}
+	}
+	
+	if (check === true) {
+		
+		document.getElementById('bf_sat').innerHTML++
+	}
+	else {
+		
+		document.getElementById('bf_unsat').innerHTML++
+	}
+}
+
+function binarInc(value) {
+	
+	let len = value.length;
+		
+	let c = 0;
+	
+	for (let i = (len - 1); i > -1; i--) {
+		
+		if (value[i] === '1') {
+			
+			value = value.replaceAt(i, '0');
+			
+			c++;
+		}
+		else {
+			
+			value = value.replaceAt(i, '1');
+			
+			break;
+		}
+	}
+	
+	if (c === len) {
+		
+		value = '1' + value;
+	}
+	
+	return value;
+}
+
+String.prototype.replaceAt = function(index, replacement) {
+	
+    return this.substr(0, index) + replacement + this.substr(index + replacement.length);
+}
+
+function getRandomInt(min, max) {
+	
+	min = Math.ceil(min);
+	
+	max = Math.ceil(max);
+	
+	return Math.ceil(Math.random() * (max - min)) + min;
+}
+
+function getRandomAppro(min, max) {
+	
+	min = Math.ceil(min);
+	
+	max = Math.ceil(max);
+	
+	let sign;
+	
+	if (Math.random() >= 0.5) {
+		
+		sign = 1;
+	}
+	else {
+		
+		sign = -1;
+	}
+	
+	return Math.ceil((Math.random() * (max - min) + min) * sign);
 }
 
 (function() {
