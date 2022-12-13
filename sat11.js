@@ -1,6 +1,8 @@
 ﻿
 // -------------- Algo à tester -------------- :
 
+let start_lit, start_bf
+
 function sort(eq_tab, rec) {
 	
 	if (typeof eq_tab === 'string' || eq_tab instanceof String) {
@@ -108,7 +110,7 @@ function sort(eq_tab, rec) {
 	
 	//console.log(simple, comb_tab)
 	
-	let u = unsat(simple, comb_tab, eq_tab, rec)
+	let u = sat(simple, comb_tab, eq_tab, rec)
 	
 	if (u === false) {
 		
@@ -126,14 +128,14 @@ function sort(eq_tab, rec) {
 			
 			document.getElementById('lit_sat').innerHTML++
 			
-			return true
-			
 			//throw new Error() // Arrêt du prog
 		}
 	}
+	
+	document.getElementById('time_lit').innerHTML = (microtime(true) - start_lit) + ' seconds'
 }
 
-function unsat(simple, obj, eq_tab, rec) {
+function sat(simple, obj, eq_tab, rec) {
 	
 	for (const property in simple) {
 		
@@ -471,6 +473,8 @@ function bruteforce(eq_tab) {
 		
 		document.getElementById('bf_unsat').innerHTML++
 	}
+	
+	document.getElementById('time_bf').innerHTML = (microtime(true) - start_bf) + ' seconds'
 }
 
 function binarInc(value) {
@@ -519,27 +523,54 @@ function getRandomInt(min, max) {
 
 function getRandomAppro(min, max) {
 	
-	min = Math.ceil(min);
+	min = Math.ceil(min)
 	
-	max = Math.ceil(max);
+	max = Math.ceil(max)
 	
-	let sign;
+	let sign
 	
 	if (Math.random() >= 0.5) {
 		
-		sign = 1;
+		sign = 1
 	}
 	else {
 		
-		sign = -1;
+		sign = -1
 	}
 	
-	return Math.ceil((Math.random() * (max - min) + min) * sign);
+	return Math.ceil((Math.random() * (max - min) + min) * sign)
+}
+
+function microtime(getAsFloat) {
+    var s, now, multiplier;
+
+    if(typeof performance !== 'undefined' && performance.now) {
+        now = (performance.now() + performance.timing.navigationStart) / 1000;
+        multiplier = 1e6; // 1,000,000 for microseconds
+    }
+    else {
+        now = (Date.now ? Date.now() : new Date().getTime()) / 1000;
+        multiplier = 1e3; // 1,000
+    }
+
+    // Getting microtime as a float is easy
+    if(getAsFloat) {
+        return now;
+    }
+
+    // Dirty trick to only get the integer part
+    s = now | 0;
+
+    return (Math.round((now - s) * multiplier ) / multiplier ) + ' ' + s;
 }
 
 (function() {
 	
 	document.getElementById('send').onclick = function() {
+		
+		start_bf = microtime(true)
+		
+		start_lit = microtime(true)
 		
 		document.getElementById('bf_unsat').innerHTML = 0
 		
